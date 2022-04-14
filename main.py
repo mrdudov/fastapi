@@ -19,6 +19,12 @@ class Student(BaseModel):
     year: str
 
 
+class UpdateStudent(BaseModel):
+    name: Optional[str] = None
+    age: Optional[int] = None
+    year: Optional[str] = None
+
+
 @app.get('/')
 def index():
     return {
@@ -51,4 +57,24 @@ def create_student(student_id: int, student: Student):
         return {"error": "student exists"}
     
     students[student_id] = student
+    return students[student_id]
+
+
+@app.put('/update-student/{student_id}')
+def update_student(student_id: int, student: UpdateStudent):
+    """
+    update student 
+    """
+    if student_id not in students:
+        return {"error": "student does not exists"}
+
+    if student.name:
+        students[student_id].name = student.name
+    
+    if student.age:
+        students[student_id].age = student.age
+    
+    if student.year:
+        students[student_id].year = student.year
+
     return students[student_id]
