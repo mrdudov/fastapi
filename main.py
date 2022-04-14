@@ -25,8 +25,8 @@ def get_student(student_id: int =  Path(None, description="The ID of the student
     """
     return students[student_id]
 
-@app.get("/get-by-name")
-def get_student(*, name: Optional[str] = None, test: int):
+@app.get("/get-by-name/{student_id}")
+def get_student(*, student_id: int, name: Optional[str] = None, test: int):
     """
     get student by name
     """
